@@ -1,0 +1,5 @@
+dist
+reports
+.webpack
+.serverless
+.env
