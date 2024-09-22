@@ -12,7 +12,11 @@
     "upstream": "rm -rf /tmp/_templates && mkdir /tmp/_templates && HYGEN_CREATE_TMPLS=/tmp/_templates npx hygen-create g && rsync -auP --remove-source-files /tmp/_templates/"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.654.0",
+    "@aws-sdk/client-dynamodb": "^3.484.0",
     "@aws-sdk/client-secrets-manager": "^3.484.0",
+    "dedent": "^1.5.3",
+    "string-strip-html": "8.5.0",
     "winston": "^3.11.0",
     "winston-cloudwatch": "^6.2.0",
     "winston-format-debug": "^1.4.0"

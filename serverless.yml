@@ -13,6 +13,19 @@ provider:
           Resource:
             - "Fn::Join":
                 - ":"
+                - - "arn:aws:dynamodb"
+                  - Ref: "AWS::Region"
+                  - Ref: "AWS::AccountId"
+                  - "table/chase-rewards-past-offers"
+          Action:
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:BatchWriteItem
+            - dynamodb:BatchGetItem
+        - Effect: "Allow"
+          Resource:
+            - "Fn::Join":
+                - ":"
                 - - "arn:aws:secretsmanager"
                   - Ref: "AWS::Region"
                   - Ref: "AWS::AccountId"
@@ -34,6 +47,8 @@ functions:
   main:
     memorySize: 128
     handler: src/main.default
+    events:
+      - schedule: cron(0 13 * * ? *)
 custom:
   esbuild:
     bundle: true
@@ -45,6 +60,17 @@ custom:
       - "@aws-sdk/*"
 resources:
   Resources:
+    PastOffersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        BillingMode: PAY_PER_REQUEST
+        TableName: chase-rewards-past-offers
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
     ChaseRewardsSecrets:
       Type: AWS::SecretsManager::Secret
       Properties:

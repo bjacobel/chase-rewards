@@ -14,7 +14,7 @@ if (IS_PROD) {
     transports: [
       new WinstonCloudWatch({
         level: "error",
-        logGroupName: "/aws/lambda/petsky-dev-main",
+        logGroupName: "/aws/lambda/chase-rewards-dev-main",
         logStreamName: "winston",
         awsRegion: "us-east-1",
       }),
